@@ -19,7 +19,7 @@ local label = Instance.new("TextLabel")
 label.Size = UDim2.new(0, 380, 0, 60)
 label.Position = UDim2.new(0, 10, 0, 10)
 label.BackgroundTransparency = 1
-label.Text = "Join Discord for Script"
+label.Text = "Key Verification"
 label.TextColor3 = Color3.fromRGB(255, 255, 255)
 label.TextSize = 20
 label.TextWrapped = true
@@ -28,24 +28,24 @@ label.Parent = popup
 local button = Instance.new("TextButton")
 button.Size = UDim2.new(0, 380, 0, 50)
 button.Position = UDim2.new(0, 10, 0, 80)
-button.Text = "Copy Discord Invite"
+button.Text = "Copy Key Link"
 button.TextColor3 = Color3.fromRGB(255, 255, 255)
 button.BackgroundColor3 = Color3.fromRGB(0, 122, 255)
 button.TextSize = 18
 button.BorderSizePixel = 0
 button.Parent = popup
 
-local discordInviteLink = "https://discord.gg/shYqME35VQ"
+local KeyInviteLink = "https://work.ink/23h3/27owytry"
 
 local function copyToClipboard()
     local success, message = pcall(function()
-        setclipboard(discordInviteLink)
+        setclipboard(KeyInviteLink)
     end)
     
     if success then
-        print("Invite link copied to clipboard!")
+        print("Key link copied to clipboard!")
     else
-        print("Failed to copy invite link.")
+        print("Failed to copy Key link.")
     end
 end
 
