@@ -35,7 +35,7 @@ button.TextSize = 18
 button.BorderSizePixel = 0
 button.Parent = popup
 
-local KeyInviteLink = "https://work.ink/23h3/27owytry"
+local KeyInviteLink = "https://discord.gg/WwahwJjfYF"
 
 local function copyToClipboard()
     local success, message = pcall(function()
