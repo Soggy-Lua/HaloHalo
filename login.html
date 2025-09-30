@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Back</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+            top: -400px;
+            left: -200px;
+            animation: pulse 8s ease-in-out infinite;
+        }
+        
+        body::after {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            bottom: -300px;
+            right: -150px;
+            animation: pulse 8s ease-in-out infinite 4s;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .container {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 60px 50px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 16px rgba(139, 92, 246, 0.4);
+        }
+        
+        h1 {
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .subtitle {
+            color: #a0a0a0;
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+        
+        .status-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 24px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .status-card.logged-in {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.05) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        
+        .status-card.logged-out {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+        
+        .status-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .status-icon {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .status-icon.active {
+            background: #10b981;
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
+        }
+        
+        .status-icon.active::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid rgba(16, 185, 129, 0.4);
+            animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+        
+        @keyframes ping {
+            75%, 100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        .status-icon.inactive {
+            background: #fbbf24;
+        }
+        
+        .status-label {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 15px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .user-details {
+            flex: 1;
+        }
+        
+        .user-email {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+        
+        .user-id {
+            color: #707070;
+            font-size: 13px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        button:hover::before {
+            left: 100%;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button.secondary {
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        button.secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .protected-content {
+            display: none;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 28px;
+            border-radius: 16px;
+            margin-top: 24px;
+        }
+        
+        .protected-content h2 {
+            color: #a78bfa;
+            margin-bottom: 12px;
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .protected-content p {
+            color: #d1d1d1;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        
+        .protected-content p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: rgba(139, 92, 246, 0.2);
+            color: #a78bfa;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🔐</div>
+        <h1>Welcome Back</h1>
+        <p class="subtitle">Secure authentication powered by Netlify Identity</p>
+        
+        <div id="status" class="status-card logged-out">
+            <div class="status-header">
+                <div id="status-icon" class="status-icon inactive"></div>
+                <span class="status-label" id="status-text">Not authenticated</span>
+            </div>
+            <div id="user-info"></div>
+        </div>
+
+        <div id="auth-buttons">
+            <button id="login-btn" onclick="netlifyIdentity.open()">
+                Sign In or Create Account
+            </button>
+            <button id="logout-btn" class="secondary hidden" onclick="netlifyIdentity.logout()">
+                Sign Out
+            </button>
+        </div>
+
+        <div id="protected-content" class="protected-content">
+            <h2>🎉 Members Only</h2>
+            <p>Welcome to the exclusive members area! You're seeing this premium content because you're authenticated.</p>
+            <p>This could be your user dashboard, premium features, or any protected content.</p>
+            <div class="badge">✓ VERIFIED MEMBER</div>
+        </div>
+    </div>
+
+    <script>
+        const statusDiv = document.getElementById('status');
+        const statusText = document.getElementById('status-text');
+        const statusIcon = document.getElementById('status-icon');
+        const userInfoDiv = document.getElementById('user-info');
+        const loginBtn = document.getElementById('login-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const protectedContent = document.getElementById('protected-content');
+
+        function updateUI(user) {
+            if (user) {
+                statusDiv.className = 'status-card logged-in';
+                statusText.textContent = 'Authenticated';
+                statusIcon.className = 'status-icon active';
+                
+                const initials = user.email.substring(0, 2).toUpperCase();
+                userInfoDiv.innerHTML = `
+                    <div class="user-info">
+                        <div class="user-avatar">${initials}</div>
+                        <div class="user-details">
+                            <div class="user-email">${user.email}</div>
+                            <div class="user-id">ID: ${user.id.substring(0, 16)}...</div>
+                        </div>
+                    </div>
+                `;
+                loginBtn.classList.add('hidden');
+                logoutBtn.classList.remove('hidden');
+                protectedContent.style.display = 'block';
+            } else {
+                statusDiv.className = 'status-card logged-out';
+                statusText.textContent = 'Not authenticated';
+                statusIcon.className = 'status-icon inactive';
+                userInfoDiv.innerHTML = '';
+                loginBtn.classList.remove('hidden');
+                logoutBtn.classList.add('hidden');
+                protectedContent.style.display = 'none';
+            }
+        }
+
+        netlifyIdentity.on('init', user => {
+            console.log('Identity initialized', user);
+            updateUI(user);
+        });
+
+        netlifyIdentity.on('login', user => {
+            console.log('User logged in', user);
+            updateUI(user);
+            netlifyIdentity.close();
+        });
+
+        netlifyIdentity.on('logout', () => {
+            console.log('User logged out');
+            updateUI(null);
+        });
+
+        netlifyIdentity.on('signup', user => {
+            console.log('User signed up', user);
+        });
+
+        function getCurrentUser() {
+            return netlifyIdentity.currentUser();
+        }
+
+        function doProtectedAction() {
+            const user = getCurrentUser();
+            if (!user) {
+                alert('Please log in to perform this action');
+                netlifyIdentity.open();
+                return;
+            }
+            alert('Protected action executed for ' + user.email);
+        }
+    </script>
+</body>
+</html>
